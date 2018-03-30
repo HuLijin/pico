@@ -1,2 +1,2 @@
-# ![](branding/logo.png) pico
-easy Event Making
+# pico
+Easy Event Making
