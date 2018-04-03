@@ -1,0 +1,101 @@
+{
+  "layers": [
+    [
+      {
+        "type": "arc_r",
+        "verteces": [
+          {
+            "x": 120,
+            "y": 255
+          },
+          {
+            "x": 120,
+            "y": 75
+          },
+          {
+            "x": 120,
+            "y": 75
+          },
+          {
+            "x": 120,
+            "y": 75
+          },
+          {
+            "x": 255,
+            "y": 180
+          },
+          {
+            "x": 255,
+            "y": 180
+          }
+        ]
+      },
+      {
+        "type": "arc_r",
+        "verteces": [
+          {
+            "x": 120,
+            "y": 255
+          },
+          {
+            "x": 45,
+            "y": 150
+          },
+          {
+            "x": 45,
+            "y": 30
+          },
+          {
+            "x": 255,
+            "y": 30
+          },
+          {
+            "x": 255,
+            "y": 180
+          },
+          {
+            "x": 255,
+            "y": 180
+          }
+        ]
+      }
+    ],
+    [],
+    []
+  ],
+  "styles": [
+    {
+      "thickness": 15,
+      "strokeLinecap": "square",
+      "strokeLinejoin": "miter",
+      "color": "#fff",
+      "fill": "none",
+      "dash": [
+        0,
+        0
+      ]
+    },
+    {
+      "thickness": 5,
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "color": "#777",
+      "fill": "none",
+      "dash": [
+        0,
+        0
+      ]
+    },
+    {
+      "thickness": 5,
+      "strokeLinecap": "round",
+      "strokeLinejoin": "round",
+      "color": "#444",
+      "fill": "none",
+      "dash": [
+        0,
+        0
+      ]
+    }
+  ]
+}
