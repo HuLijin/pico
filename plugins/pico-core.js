@@ -1,19 +1,16 @@
 'use strict';
 
-//=============================================================================
-// pico-core.js
-//=============================================================================
-
 /*:
  * @plugindesc Tool for Event Making.
- * @author grm
- * @version 1.0.0
+ *
+ * @author grm <grimfw@gmail.com>
+ * @author xvw <xaviervdw@gmail.com>
  *
  * This plugin add SelfVariables and some small operands !
  * This code is released under MIT license.
  */
 
-const Pico = {
+const π = {
   version: '1.0.0-alpha'
 };
 
@@ -63,7 +60,8 @@ Version.parse = function(versionStr) {
 /**
  * Get the current version of Pico
  */
-Version.current = Version.parse(Pico.version);
+Version.current = Version.parse(π.version);
+
 /**
  * Describes SelfVariables logic
  */
@@ -178,6 +176,22 @@ function SV(mapId, eventId, id, value) {
   return $gameSelfVariables.value(key);
 }
 
+/**
+ * Public API
+ */
+
+/**
+ * Get a random value betweend a and b
+ * @param {int} a min value
+ * @param {int} b max value
+ */
+π.random = function(a, b) {
+  const data = [a, b].sort();
+  const min = data[0];
+  const max = data[1];
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 /*
  * Patch for Game Interpreter
  */
@@ -247,3 +261,8 @@ DataManager.extractSaveContents = function(contents) {
   $gameSelfVariables = new GameSelfVariables();
   $gameSelfVariables._data = contents.selfVariables._data;
 };
+
+/**
+ * To be easy
+ */
+const Pico = π;
