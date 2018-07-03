@@ -13,11 +13,57 @@
  * This code is released under MIT license.
  */
 
+const Pico = {
+  version: '1.0.0-alpha'
+};
+
 /**
  * Global scoped variables
  */
 let $gameSelfVariables;
 
+/**
+ * Describe a version (using semantic versionning)
+ * (This implementation is cheap and should be improved...)
+ *
+ * @TODO
+ * - add comparison version
+ */
+class Version {
+  constructor(major, minor, patch, label) {
+    this.major = major || 0;
+    this.minor = minor || 0;
+    this.patch = patch || 0;
+    if (label) {
+      this.label = label.toLowerCase();
+    }
+  }
+
+  toString() {
+    const v = [this.major, this.minor, this.patch].join('.');
+    const l = this.label ? `-${this.label}` : '';
+    return v + l;
+  }
+}
+
+/**
+ * Parse version
+ */
+Version.parse = function(versionStr) {
+  const matched = versionStr.match(/(\d+\.\d+\.\d+)(?:\-(\w+))*/);
+  if (matched) {
+    const version = matched[1].split(/\./).map(function(x) {
+      return parseInt(x, 10);
+    });
+    const label = matched[2];
+    return new Version(version[0], version[1], version[2], label);
+  }
+};
+
+/**
+ * Get the current version of Pico
+ */
+Version.current = Version.parse(Pico.version);
 /**
  * Describes SelfVariables logic
  */
