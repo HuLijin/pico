@@ -1,0 +1,6 @@
+libs
+plugins/*.js
+!plugins/pico-*.js
+main.js
+plugins.js
+rpg_*.js
