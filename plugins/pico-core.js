@@ -11,7 +11,9 @@
  */
 
 const π = {
-  version: '0.0.1-alpha'
+  _artifacts: {
+    version: '1.0.0-alpha'
+  }
 };
 
 /**
@@ -33,6 +35,23 @@ class Version {
     this.patch = patch || 0;
     if (label) {
       this.label = label.toLowerCase();
+      this.checkLabel();
+    }
+  }
+
+  labels() {
+    return {
+      dev: 0,
+      alpha: 1,
+      beta: 2,
+      prebuilt: 3,
+      stable: 4
+    };
+  }
+
+  checkLabel() {
+    if (!this.labels()[this.label]) {
+      throw `Invalid Version Label : ${this.label}`;
     }
   }
 
@@ -58,9 +77,14 @@ Version.parse = function(versionStr) {
 };
 
 /**
+ * Parse version constraint
+ */
+Version.parseConstraint = function(constraint) {};
+
+/**
  * Get the current version of Pico
  */
-Version.current = Version.parse(π.version);
+Version.current = Version.parse(π._artifacts.version);
 
 /**
  * Describes SelfVariables logic
