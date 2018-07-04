@@ -192,6 +192,26 @@ function SV(mapId, eventId, id, value) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+π.math = {};
+
+/**
+ * Get the percent of two values (`π.math.percent(10, 20) == 50`)
+ * @param {int} value value
+ * @param {int} value max
+ */
+π.math.percent = function(value, max) {
+  return (value * 100.0) / max;
+};
+
+/**
+ * Apply a percent to a value (`π.math.apply_percent(50, 200) == 100`)
+ * @param {int} value percent
+ * @param {int} value value
+ */
+π.math.apply_percent = function(percent, value) {
+  return (percent * value) / 100.0;
+};
+
 /*
  * Patch for Game Interpreter
  */

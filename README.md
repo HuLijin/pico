@@ -1,4 +1,4 @@
-# Pico
+# πico
 
 ## Shortcuts for variables and switches
 
