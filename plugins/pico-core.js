@@ -188,6 +188,7 @@ function SV(mapId, eventId, id, value) {
 π.event = {};
 π.player = {};
 π.map = {};
+π.party = {};
 
 /**
  * Get a random value betweend a and b
@@ -307,7 +308,7 @@ function SV(mapId, eventId, id, value) {
  * Get the max hp of an actor
  * @param {int} id the id of the actor
  */
-π.actor.maxhp = function(id) {
+π.actor.max_hp = function(id) {
   const actor = $gameActors.actor(id);
   if (actor) return actor.mhp;
 };
@@ -316,7 +317,7 @@ function SV(mapId, eventId, id, value) {
  * Get the max mp of an actor
  * @param {int} id the id of the actor
  */
-π.actor.maxmp = function(id) {
+π.actor.max_mp = function(id) {
   const actor = $gameActors.actor(id);
   if (actor) return actor.mmp;
 };
@@ -423,7 +424,91 @@ function SV(mapId, eventId, id, value) {
  * Get the map ID
  */
 π.map.id = function() {
-  return $gameMap._mapId;
+  return $gameMap.mapId();
+};
+
+/**
+ * Get the width of the map
+ */
+π.map.width = function() {
+  return $gameMap.width();
+};
+
+/**
+ * Get the height of the map
+ */
+π.map.height = function() {
+  return $gameMap.height();
+};
+
+/**
+ * Get the display name of the current map
+ */
+π.map.display_name = function() {
+  return $gameMap.displayName();
+};
+
+/**
+ * Get the team size
+ */
+π.party.team_size = function() {
+  return $gameParty.size();
+};
+
+/**
+ * Get the gold
+ */
+π.party.gold = function() {
+  return $gameParty.gold();
+};
+
+/**
+ * Get the steps
+ */
+π.party.steps = function() {
+  return $gameParty.steps();
+};
+
+/**
+ * Get the playtime
+ */
+π.party.playtime = function() {
+  return $gameSystem.playtime();
+};
+
+/**
+ * Get the timer's value (in second)
+ */
+π.party.timer = function() {
+  return $gameTimer.seconds();
+};
+
+/**
+ * Get the number of save
+ */
+π.party.save_count = function() {
+  return $gameSystem.saveCount();
+};
+
+/**
+ * Get the number of battle
+ */
+π.party.battle_count = function() {
+  return $gameSystem.battleCount();
+};
+
+/**
+ * Get the number of victory
+ */
+π.party.victory_count = function() {
+  return $gameSystem.winCount();
+};
+
+/**
+ * Get the number of escape
+ */
+π.party.escape_count = function() {
+  return $gameSystem.escapeCount();
 };
 
 /*
