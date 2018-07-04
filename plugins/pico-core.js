@@ -419,6 +419,13 @@ function SV(mapId, eventId, id, value) {
   return π.event.direction(0);
 };
 
+/**
+ * Get the map ID
+ */
+π.map.id = function() {
+  return $gameMap._mapId;
+};
+
 /*
  * Patch for Game Interpreter
  */
