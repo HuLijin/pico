@@ -222,7 +222,6 @@ function SV(mapId, eventId, id, value) {
  * Get the number of items (by Id)
  * @param {int} id the id of the object
  */
-
 π.item.count = function(id) {
   return $gameParty.numItems($dataItems[id]);
 };
@@ -231,7 +230,6 @@ function SV(mapId, eventId, id, value) {
  * Check if the party has an item (by Id)
  * @param {int} id the id of the object
  */
-
 π.item.has = function(id) {
   return π.item.count(id) > 0;
 };
@@ -240,7 +238,6 @@ function SV(mapId, eventId, id, value) {
  * Get the number of weapons (by Id)
  * @param {int} id the id of the object
  */
-
 π.weapon.count = function(id) {
   return $gameParty.numItems($dataWeapons[id]);
 };
@@ -249,7 +246,6 @@ function SV(mapId, eventId, id, value) {
  * Check if the party has an weapon (by Id)
  * @param {int} id the id of the object
  */
-
 π.weapon.has = function(id) {
   return π.weapon.count(id) > 0;
 };
@@ -258,7 +254,6 @@ function SV(mapId, eventId, id, value) {
  * Get the number of armors (by Id)
  * @param {int} id the id of the object
  */
-
 π.armor.count = function(id) {
   return $gameParty.numItems($dataArmors[id]);
 };
@@ -267,9 +262,80 @@ function SV(mapId, eventId, id, value) {
  * Check if the party has an armor (by Id)
  * @param {int} id the id of the object
  */
-
 π.armor.has = function(id) {
   return π.armor.count(id) > 0;
+};
+
+/**
+ * Get the level of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.level = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.level;
+};
+
+/**
+ * Get the current exp of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.exp = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.currentExp();
+};
+
+/**
+ * Get the hp of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.hp = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.hp;
+};
+
+/**
+ * Get the mp of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.mp = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.hp;
+};
+
+/**
+ * Get the max hp of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.maxhp = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.mhp;
+};
+
+/**
+ * Get the max mp of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.maxmp = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.mmp;
+};
+
+/**
+ * Get the atk point of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.atk = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.atk;
+};
+
+/**
+ * Get the def point of an actor
+ * @param {int} id the id of the actor
+ */
+π.actor.def = function(id) {
+  const actor = $gameActors.actor(id);
+  if (actor) return actor.def;
 };
 
 /*
