@@ -180,19 +180,25 @@ function SV(mapId, eventId, id, value) {
  * Public API
  */
 
+π.math = {};
+π.item = {};
+π.weapon = {};
+π.armor = {};
+π.actor = {};
+π.event = {};
+π.map = {};
+
 /**
  * Get a random value betweend a and b
  * @param {int} a min value
  * @param {int} b max value
  */
-π.random = function(a, b) {
+π.math.random = function(a, b) {
   const data = [a, b].sort();
   const min = data[0];
   const max = data[1];
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
-
-π.math = {};
 
 /**
  * Get the percent of two values (`π.math.percent(10, 20) == 50`)
@@ -210,6 +216,24 @@ function SV(mapId, eventId, id, value) {
  */
 π.math.apply_percent = function(percent, value) {
   return (percent * value) / 100.0;
+};
+
+/**
+ * Get the number of items (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.item.count = function(id) {
+  return $gameParty.numItems($dataItems[id]);
+};
+
+/**
+ * Check if the party has an item (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.item.has = function(id) {
+  return π.item.count(id) > 0;
 };
 
 /*
