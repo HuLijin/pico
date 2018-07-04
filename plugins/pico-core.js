@@ -236,6 +236,42 @@ function SV(mapId, eventId, id, value) {
   return π.item.count(id) > 0;
 };
 
+/**
+ * Get the number of weapons (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.weapon.count = function(id) {
+  return $gameParty.numItems($dataWeapons[id]);
+};
+
+/**
+ * Check if the party has an weapon (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.weapon.has = function(id) {
+  return π.weapon.count(id) > 0;
+};
+
+/**
+ * Get the number of armors (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.armor.count = function(id) {
+  return $gameParty.numItems($dataArmors[id]);
+};
+
+/**
+ * Check if the party has an armor (by Id)
+ * @param {int} id the id of the object
+ */
+
+π.armor.has = function(id) {
+  return π.armor.count(id) > 0;
+};
+
 /*
  * Patch for Game Interpreter
  */
