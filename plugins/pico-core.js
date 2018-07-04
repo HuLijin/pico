@@ -11,7 +11,7 @@
  */
 
 const π = {
-  version: '1.0.0-alpha'
+  version: '0.0.1-alpha'
 };
 
 /**
@@ -186,6 +186,7 @@ function SV(mapId, eventId, id, value) {
 π.armor = {};
 π.actor = {};
 π.event = {};
+π.player = {};
 π.map = {};
 
 /**
@@ -336,6 +337,86 @@ function SV(mapId, eventId, id, value) {
 π.actor.def = function(id) {
   const actor = $gameActors.actor(id);
   if (actor) return actor.def;
+};
+
+/**
+ * Get the x-coord of an event/player
+ * @param {int} id the id of the character (0 for the hero)
+ */
+π.event.x = function(id) {
+  const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
+  if (character) character.x;
+};
+
+/**
+ * Get the x-coord of the player
+ */
+π.player.x = function() {
+  return π.event.x(0);
+};
+
+/**
+ * Get the y-coord of an event/player
+ * @param {int} id the id of the character (0 for the hero)
+ */
+π.event.y = function(id) {
+  const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
+  if (character) character.y;
+};
+
+/**
+ * Get the y-coord of the player
+ */
+π.player.y = function() {
+  return π.event.y(0);
+};
+
+/**
+ * Get the x-coord of an event/player
+ * @param {int} id the id of the character (0 for the hero)
+ */
+π.event.screen_x = function(id) {
+  const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
+  if (character) character.screenX();
+};
+
+/**
+ * Get the x-coord of the player
+ */
+π.player.screen_x = function() {
+  return π.event.screen_x(0);
+};
+
+/**
+ * Get the y-coord of an event/player
+ * @param {int} id the id of the character (0 for the hero)
+ */
+π.event.screen_y = function(id) {
+  const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
+  if (character) character.screenY();
+};
+
+/**
+ * Get the y-coord of the player
+ */
+π.player.screen_y = function() {
+  return π.event.screen_y(0);
+};
+
+/**
+ * Get the direction of an event/player (2, 4, 6, 8)
+ * @param {int} id the id of the character (0 for the hero)
+ */
+π.event.direction = function(id) {
+  const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
+  if (character) character.direction;
+};
+
+/**
+ * Get the direction of the player (2, 4, 6, 8)
+ */
+π.player.direction = function() {
+  return π.event.direction(0);
 };
 
 /*
