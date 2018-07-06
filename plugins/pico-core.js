@@ -52,6 +52,20 @@ class Version {
     }
   }
 
+  compareTo(otherVersion) {
+    if (this.major > otherVersion.major) return 1;
+    if (this.major < otherVersion.major) return -1;
+    if (this.minor > otherVersion.minor) return 1;
+    if (this.minor < otherVersion.minor) return -1;
+    if (this.path > otherVersion.patch) return 1;
+    if (this.path < otherVersion.patch) return -1;
+    const label1 = this.labels()[this.label || 'stable'];
+    const label2 = this.labels()[otherVersion.label || 'stable'];
+    if (label1 > label2) return 1;
+    if (label1 < label2) return -1;
+    return 0;
+  }
+
   toString() {
     const v = [this.major, this.minor, this.patch].join('.');
     const l = this.label ? `-${this.label}` : '';
