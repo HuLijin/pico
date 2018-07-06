@@ -24,9 +24,6 @@ let $gameSelfVariables;
 /**
  * Describe a version (using semantic versionning)
  * (This implementation is cheap and should be improved...)
- *
- * @TODO
- * - add comparison version
  */
 class Version {
   constructor(major, minor, patch, label) {
@@ -79,7 +76,17 @@ Version.parse = function(versionStr) {
 /**
  * Parse version constraint
  */
-Version.parseConstraint = function(constraint) {};
+Version.parseConstraint = function(constraint) {
+  const matched = constraint.match(
+    /((?:>|<|=|!)=?)\s*(.+)(?:\s*and\s*((?:>|<|=|!)=?)+\s*(.+))?/
+  );
+  if (matched) {
+    const filtered = matched.filter(function(e) {
+      return (e === 0 || e) && e !== constraint;
+    });
+    return filtered;
+  }
+};
 
 /**
  * Get the current version of Pico
