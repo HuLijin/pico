@@ -11,7 +11,10 @@
  */
 
 const π = {
-  version: '0.0.1-alpha'
+  core: {},
+  _artifacts: {
+    version: '1.0.0-dev'
+  }
 };
 
 /**
@@ -22,9 +25,6 @@ let $gameSelfVariables;
 /**
  * Describe a version (using semantic versionning)
  * (This implementation is cheap and should be improved...)
- *
- * @TODO
- * - add comparison version
  */
 class Version {
   constructor(major, minor, patch, label) {
@@ -33,7 +33,39 @@ class Version {
     this.patch = patch || 0;
     if (label) {
       this.label = label.toLowerCase();
+      this.checkLabel();
     }
+  }
+
+  labels() {
+    return {
+      dev: 0,
+      alpha: 1,
+      beta: 2,
+      prebuilt: 3,
+      stable: 4
+    };
+  }
+
+  checkLabel() {
+    const label = this.labels()[this.label];
+    if (!label && label !== 0) {
+      throw `Invalid Version Label : ${this.label}`;
+    }
+  }
+
+  compareTo(otherVersion) {
+    if (this.major > otherVersion.major) return 1;
+    if (this.major < otherVersion.major) return -1;
+    if (this.minor > otherVersion.minor) return 1;
+    if (this.minor < otherVersion.minor) return -1;
+    if (this.path > otherVersion.patch) return 1;
+    if (this.path < otherVersion.patch) return -1;
+    const label1 = this.labels()[this.label || 'stable'];
+    const label2 = this.labels()[otherVersion.label || 'stable'];
+    if (label1 > label2) return 1;
+    if (label1 < label2) return -1;
+    return 0;
   }
 
   toString() {
@@ -58,9 +90,62 @@ Version.parse = function(versionStr) {
 };
 
 /**
+ * Parse version constraint
+ */
+Version.parseConstraint = function(constraint) {
+  const checker = function(operator, version) {
+    return function(base) {
+      const result = base.compareTo(version);
+      if (operator === '!=' && result !== 0) return;
+      if (operator === '>' && result === 1) return;
+      if (operator === '<' && result === -1) return;
+      if (operator === '==' && result === 0) return;
+      if (operator === '>=' && result >= 0) return;
+      if (operator === '<=' && result <= 0) return;
+      throw `Version contract violated : ${base} ${operator} ${version}`;
+    };
+  };
+  return constraint
+    .split(/and/)
+    .map(function(elt) {
+      return elt
+        .trim()
+        .match(/\s*(>=|<=|==|\!=|>|<)\s*(.+)/)
+        .slice(1);
+    })
+    .map(function(recipe) {
+      const operator = recipe[0];
+      const version = Version.parse(recipe[1]);
+      if (!version) {
+        throw `Invalid version ${recipe[1]}`;
+      }
+      return checker(operator, version);
+    });
+};
+
+/**
+ * Check a constraint
+ */
+Version.check = function(base, constraint) {
+  const baseVersion = typeof base === 'string' ? Version.parse(base) : base;
+  Version.parseConstraint(constraint).forEach(function(callback) {
+    callback(baseVersion);
+  });
+  return true;
+};
+
+/**
  * Get the current version of Pico
  */
-Version.current = Version.parse(π.version);
+Version.current = Version.parse(π._artifacts.version);
+π.core.version = Version.current;
+π.core.require = function(deps) {
+  if (Utils.isOptionValid('test')) {
+    deps.forEach(function(elt) {
+      Version.check(elt[0], elt[1]);
+    });
+  }
+};
 
 /**
  * Describes SelfVariables logic
