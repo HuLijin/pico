@@ -47,7 +47,8 @@ class Version {
   }
 
   checkLabel() {
-    if (!this.labels()[this.label]) {
+    const label = this.labels()[this.label];
+    if (!label && label !== 0) {
       throw `Invalid Version Label : ${this.label}`;
     }
   }
@@ -91,15 +92,44 @@ Version.parse = function(versionStr) {
  * Parse version constraint
  */
 Version.parseConstraint = function(constraint) {
-  const matched = constraint.match(
-    /((?:>|<|=|!)=?)\s*(.+)(?:\s*and\s*((?:>|<|=|!)=?)+\s*(.+))?/
-  );
-  if (matched) {
-    const filtered = matched.filter(function(e) {
-      return (e === 0 || e) && e !== constraint;
+  const checker = function(operator, version) {
+    return function(base) {
+      const result = base.compareTo(version);
+      if (operator === '!=' && result !== 0) return;
+      if (operator === '>' && result === 1) return;
+      if (operator === '<' && result === -1) return;
+      if (operator === '==' && result === 0) return;
+      if (operator === '>=' && result >= 0) return;
+      if (operator === '<=' && result <= 0) return;
+      throw `Version contract violated : ${base} ${operator} ${version}`;
+    };
+  };
+  return constraint
+    .split(/and/)
+    .map(function(elt) {
+      return elt
+        .trim()
+        .match(/\s*(>=|<=|==|\!=|>|<)\s*(.+)/)
+        .slice(1);
+    })
+    .map(function(recipe) {
+      const operator = recipe[0];
+      const version = Version.parse(recipe[1]);
+      if (!version) {
+        throw `Invalid version ${recipe[1]}`;
+      }
+      return checker(operator, version);
     });
-    return filtered;
-  }
+};
+
+/**
+ * Check a constraint
+ */
+Version.constraint = function(base, constraint) {
+  const baseVersion = typeof base === 'string' ? Version.parse(base) : base;
+  Version.parseConstraint(constraint).forEach(function(callback) {
+    callback(baseVersion);
+  });
 };
 
 /**
