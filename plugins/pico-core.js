@@ -140,9 +140,11 @@ Version.check = function(base, constraint) {
 Version.current = Version.parse(π._artifacts.version);
 π.core.version = Version.current;
 π.core.require = function(deps) {
-  deps.forEach(function(elt) {
-    Version.check(elt[0], elt[1]);
-  });
+  if (Utils.isOptionValid('test')) {
+    deps.forEach(function(elt) {
+      Version.check(elt[0], elt[1]);
+    });
+  }
 };
 
 /**
