@@ -11,8 +11,9 @@
  */
 
 const π = {
+  core: {},
   _artifacts: {
-    version: '1.0.0-alpha'
+    version: '1.0.0-dev'
   }
 };
 
@@ -125,17 +126,24 @@ Version.parseConstraint = function(constraint) {
 /**
  * Check a constraint
  */
-Version.constraint = function(base, constraint) {
+Version.check = function(base, constraint) {
   const baseVersion = typeof base === 'string' ? Version.parse(base) : base;
   Version.parseConstraint(constraint).forEach(function(callback) {
     callback(baseVersion);
   });
+  return true;
 };
 
 /**
  * Get the current version of Pico
  */
 Version.current = Version.parse(π._artifacts.version);
+π.core.version = Version.current;
+π.core.require = function(deps) {
+  deps.forEach(function(elt) {
+    Version.check(elt[0], elt[1]);
+  });
+};
 
 /**
  * Describes SelfVariables logic
