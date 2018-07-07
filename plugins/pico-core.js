@@ -431,7 +431,7 @@ function SV(mapId, eventId, id, value) {
  */
 π.event.x = function(id) {
   const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
-  if (character) character.x;
+  if (character) return character.x;
 };
 
 /**
@@ -447,7 +447,7 @@ function SV(mapId, eventId, id, value) {
  */
 π.event.y = function(id) {
   const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
-  if (character) character.y;
+  if (character) return character.y;
 };
 
 /**
@@ -463,7 +463,7 @@ function SV(mapId, eventId, id, value) {
  */
 π.event.screen_x = function(id) {
   const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
-  if (character) character.screenX();
+  if (character) return character.screenX();
 };
 
 /**
@@ -479,7 +479,7 @@ function SV(mapId, eventId, id, value) {
  */
 π.event.screen_y = function(id) {
   const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
-  if (character) character.screenY();
+  if (character) return character.screenY();
 };
 
 /**
@@ -495,7 +495,7 @@ function SV(mapId, eventId, id, value) {
  */
 π.event.direction = function(id) {
   const character = id > 0 ? $gameMap.event(id) : $gamePlayer;
-  if (character) character.direction;
+  if (character) return character.direction;
 };
 
 /**
