@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 
 /*:
  * @plugindesc Tool for Event Making.
@@ -177,7 +177,7 @@ class GameSelfVariables {
    * @param {any} value the value of the variables
    */
   setValue(key, value) {
-    if (value) {
+    if (typeof value !== "undefined") {
       this._data[key] = value;
     } else {
       delete this._data[key];
