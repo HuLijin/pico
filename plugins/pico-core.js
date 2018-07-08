@@ -5,6 +5,7 @@
  *
  * @author grm <grimfw@gmail.com>
  * @author xvw <xaviervdw@gmail.com>
+ * @author joke <joke@biloucorp.com>
  *
  * This plugin add SelfVariables and some small operands !
  * This code is released under MIT license.
@@ -177,7 +178,7 @@ class GameSelfVariables {
    * @param {any} value the value of the variables
    */
   setValue(key, value) {
-    if (typeof value !== "undefined") {
+    if (typeof value !== 'undefined') {
       this._data[key] = value;
     } else {
       delete this._data[key];
