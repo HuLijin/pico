@@ -14,6 +14,25 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 
 // The core of the script
 π.picture = {};
+π.origin = {
+  TOP_LEFT: 0,
+  CENTER: 1,
+  TOP_CENTER: 2,
+  TOP_RIGHT: 3,
+  CENTER_LEFT: 4,
+  CENTER_CENTER: 1,
+  CENTER_RIGHT: 5,
+  BOTTOM_LEFT: 6,
+  BOTTOM_CENTER: 7,
+  BOTTOM_RIGHT: 8,
+  free: function(x, y) {
+    return [x, y];
+  }
+};
+
+/**
+ * Public API
+ */
 
 /**
  * Show a picture
@@ -21,7 +40,76 @@ if (typeof π === 'undefined') throw 'Core is not installed';
  * @param {string} name the name of the picture
  * @param {int} x the x-coord of the picture
  * @param {int} y the y-coord of the picture
+ * @param {origin} origin the origin of the picture
  */
-π.picture.show = function(id, name, x, y) {
-  $gameScreen.showPicture(id, name, 0, x, y, 100, 100, 255, 0);
+π.picture.show = function(id, name, x, y, origin) {
+  x = typeof x === 'undefined' ? 0 : x;
+  y = typeof y === 'undefined' ? 0 : y;
+  origin = typeof origin === 'undefined' ? 0 : origin;
+  $gameScreen.showPicture(id, name, origin, x, y, 100, 100, 255, 0);
+};
+
+/**
+ * Patch for picture
+ */
+
+const PICO_Picture_updateOrigin = Sprite_Picture.prototype.updateOrigin;
+Sprite_Picture.prototype.updateOrigin = function() {
+  PICO_Picture_updateOrigin.call(this);
+  const picture = this.picture();
+  const origin = picture.origin();
+  switch (origin) {
+    case π.origin.TOP_LEFT:
+      this.anchor.x = 0;
+      this.anchor.y = 0;
+      break;
+
+    case π.origin.CENTER:
+      this.anchor.x = 0.5;
+      this.anchor.y = 0.5;
+      break;
+
+    case π.origin.TOP_CENTER:
+      this.anchor.x = 0.5;
+      this.anchor.y = 0;
+      break;
+
+    case π.origin.TOP_RIGHT:
+      this.anchor.x = 1;
+      this.anchor.y = 0;
+      break;
+
+    case π.origin.CENTER_LEFT:
+      this.anchor.x = 0;
+      this.anchor.y = 0.5;
+      break;
+
+    case π.origin.CENTER_RIGHT:
+      this.anchor.x = 1;
+      this.anchor.y = 0.5;
+      break;
+
+    case π.origin.BOTTOM_LEFT:
+      this.anchor.x = 0;
+      this.anchor.y = 1;
+      break;
+
+    case π.origin.BOTTOM_CENTER:
+      this.anchor.x = 0.5;
+      this.anchor.y = 1;
+      break;
+
+    case π.origin.BOTTOM_RIGHT:
+      this.anchor.x = 1;
+      this.anchor.y = 1;
+      break;
+
+    default:
+      if (Array.isArray(origin)) {
+        this.anchor.x = origin[0];
+        this.anchor.y = origin[1];
+      } else {
+        throw `Invalid origin: ${origin}`;
+      }
+  }
 };
