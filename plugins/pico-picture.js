@@ -156,6 +156,19 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Access or mutate the rotation speed the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the speed
+ */
+π.picture.rotation_speed = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._rotationSpeed = value;
+  }
+  return picture._rotationSpeed;
+};
+
+/**
  * Access or mutate the tone of the picture
  * @param {int} id the id of the picture
  * @param {int} value if defined, set the new value of the tone
@@ -211,6 +224,14 @@ if (typeof π === 'undefined') throw 'Core is not installed';
       ? picture.blendMode()
       : blendMode;
   picture.move(origin, x, y, scaleX, scaleY, opacity, blendMode, duration);
+};
+
+/**
+ * Rotate (with a speed) a picture
+ * @param {int} speed the rotation's speed
+ */
+π.picture.rotate = function(id, speed) {
+  $gameScreen.rotatePicture(id, speed);
 };
 
 /**
