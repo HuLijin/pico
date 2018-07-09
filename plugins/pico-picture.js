@@ -78,6 +78,19 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Access or mutate the origin of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the origin
+ */
+π.picture.origin = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._origin = value;
+  }
+  return picture.origin();
+};
+
+/**
  * Access or mutate the scale_x of the picture
  * @param {int} id the id of the picture
  * @param {int} value if defined, set the new value of the scale_x
@@ -127,6 +140,19 @@ if (typeof π === 'undefined') throw 'Core is not installed';
     picture._blendMode = value;
   }
   return picture.blendMode();
+};
+
+/**
+ * Access or mutate the angle of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the angle
+ */
+π.picture.angle = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._angle = value;
+  }
+  return picture.angle();
 };
 
 /**
