@@ -40,6 +40,14 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Erase a picture
+ * @param {int} id the id of the picture
+ */
+π.picture.erase = function(id) {
+  $gameScreen.erasePicture(id);
+};
+
+/**
  * Patch for picture
  */
 
