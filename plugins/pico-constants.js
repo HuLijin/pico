@@ -18,6 +18,16 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Describes a direction
+ */
+π.direction = {
+  TOP: 8,
+  LEFT: 4,
+  RIGHT: 6,
+  BOTTOM: 2
+};
+
+/**
  * Describes an origin
  */
 π.origin = {
