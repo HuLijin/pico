@@ -156,6 +156,64 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Access or mutate the tone of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the tone
+ */
+π.picture.tone = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._tone = value;
+  }
+  return picture.tone();
+};
+
+/**
+ * Move a picture
+ * @param {int} id the id of the picture
+ * @param {int} duration the movement duration
+ * @param {int} x the x-coord of the picture
+ * @param {int} y the y-coord of the picture
+ * @param {int} scaleX if defined, set the new value of the scale_x
+ * @param {int} scaleY if defined, set the new value of the scale_y
+ * @param {int} opacity if defined, set the new value of the opacity
+ * @param {int} blendMode if defined, set the new value of the blend mode
+ */
+π.picture.move = function(
+  id,
+  duration,
+  x,
+  y,
+  scaleX,
+  scaleY,
+  opacity,
+  blendMode
+) {
+  const picture = π.picture._get(id);
+  const origin = picture.origin();
+  x = typeof x === 'undefined' || x === π.noOp ? picture.x() : x;
+  y = typeof y === 'undefined' || y === π.noOp ? picture.y() : y;
+  scaleX =
+    typeof scaleX === 'undefined' || scaleX === π.noOp
+      ? picture.scaleX()
+      : scaleX;
+  scaleY =
+    typeof scaleY === 'undefined' || scaleY === π.noOp
+      ? picture.scaleY()
+      : scaleY;
+  opacity =
+    typeof opacity === 'undefined' || opacity === π.noOp
+      ? picture.opacity()
+      : opacity;
+
+  blendMode =
+    typeof blendMode === 'undefined' || blendMode === π.noOp
+      ? picture.blendMode()
+      : blendMode;
+  picture.move(origin, x, y, scaleX, scaleY, opacity, blendMode, duration);
+};
+
+/**
  * Patch for picture
  */
 

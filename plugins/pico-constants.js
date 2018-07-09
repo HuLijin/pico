@@ -17,6 +17,8 @@ if (typeof π === 'undefined') throw 'Core is not installed';
   version: '1.0.0-dev'
 };
 
+π.noOp = Symbol('noOp');
+
 /**
  * Describes a direction
  */
@@ -55,4 +57,12 @@ if (typeof π === 'undefined') throw 'Core is not installed';
   MULTIPLY: 2,
   SCREEN: 3,
   OVERLAY: 4
+};
+
+/**
+ * Describe a tone
+ */
+π.tone = function(r, g, b, gray) {
+  gray = typeof gray === 'undefined' ? 0 : gray;
+  return [r, g, b, gray];
 };
