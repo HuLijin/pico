@@ -20,6 +20,10 @@ if (typeof π === 'undefined') throw 'Core is not installed';
   version: '1.0.0-dev'
 };
 
+π.picture._get = function(id) {
+  return $gameScreen.picture(id);
+};
+
 /**
  * Public API
  */
@@ -45,6 +49,58 @@ if (typeof π === 'undefined') throw 'Core is not installed';
  */
 π.picture.erase = function(id) {
   $gameScreen.erasePicture(id);
+};
+
+/**
+ * Access or mutate x-coord of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the x-coord
+ */
+π.picture.x = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._x = value;
+  }
+  return picture.x();
+};
+
+/**
+ * Access or mutate y-coord of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the y-coord
+ */
+π.picture.y = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._y = value;
+  }
+  return picture.y();
+};
+
+/**
+ * Access or mutate the scale_x of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the scale_x
+ */
+π.picture.scale_x = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._scaleX = value;
+  }
+  return picture.scaleX();
+};
+
+/**
+ * Access or mutate the scale_y of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the scale_y
+ */
+π.picture.scale_y = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._scaleY = value;
+  }
+  return picture.scaleY();
 };
 
 /**
