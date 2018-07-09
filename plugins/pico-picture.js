@@ -226,6 +226,10 @@ if (typeof π === 'undefined') throw 'Core is not installed';
   picture.move(origin, x, y, scaleX, scaleY, opacity, blendMode, duration);
 };
 
+π.picture.tint = function(id, duration, tone) {
+  $gameScreen.tintPicture(id, tone, duration);
+};
+
 /**
  * Rotate (with a speed) a picture
  * @param {int} speed the rotation's speed
