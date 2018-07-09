@@ -45,3 +45,14 @@ if (typeof π === 'undefined') throw 'Core is not installed';
     return [x, y];
   }
 };
+
+/**
+ * Describe a blend mode
+ */
+π.blend = {
+  NORMAL: 0,
+  ADD: 1,
+  MULTIPLY: 2,
+  SCREEN: 3,
+  OVERLAY: 4
+};

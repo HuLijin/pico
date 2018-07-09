@@ -104,6 +104,32 @@ if (typeof π === 'undefined') throw 'Core is not installed';
 };
 
 /**
+ * Access or mutate the opacity of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the opacity
+ */
+π.picture.opacity = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._opacity = value;
+  }
+  return picture.opacity();
+};
+
+/**
+ * Access or mutate the blend mode of the picture
+ * @param {int} id the id of the picture
+ * @param {int} value if defined, set the new value of the blend mode
+ */
+π.picture.blend_mode = function(id, value) {
+  const picture = π.picture._get(id);
+  if (typeof value !== 'undefined') {
+    picture._blendMode = value;
+  }
+  return picture.blendMode();
+};
+
+/**
  * Patch for picture
  */
 
